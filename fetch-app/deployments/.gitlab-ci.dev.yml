@@ -1,0 +1,69 @@
+stages: # List of stages for jobs, and their order of execution
+  - test
+  - build
+  - deploy
+
+test-build-golang:
+  stage: test
+  tags:
+    - golang
+  before_script:
+    - git config --global url."https://$GITLAB_USER:$GITLAB_PASS@gitlab.com/".insteadOf "https://gitlab.com/"
+  script:
+    - go build ./cmd/fetch-app
+    - CURRENT_VERSION=`./fetch-app --version`
+    - |
+      if [ "$CURRENT_VERSION" != "" ]; then
+        echo "Build Successful, using fetch-app $CURRENT_VERSION"
+      else
+        echo "Unable to get current version of fetch-app, build failed!"
+        exit 1
+      fi
+  artifacts:
+    expose_as: 'binary fetch-app'
+    paths:
+      - fetch-app
+    expire_in: 30 days
+
+build-image:
+  stage: build
+  tags:
+    - docker
+  services:
+    - name: docker:dind
+      command: ["--insecure-registry=$DOCKER_REGISTRY"]
+
+  variables:
+    # Use the overlayfs driver for improved performance.
+    DOCKER_DRIVER: overlay2
+    # Disable TLS since we're running inside local network.
+    DOCKER_TLS_CERTDIR: ""
+
+  # before_script:
+  #   - docker login -u "$DOCKER_REGISTRY_USER" -p "$DOCKER_REGISTRY_PASSWORD" $DOCKER_REGISTRY
+  script:
+    - docker build -t $DOCKER_REGISTRY_USER/fetch-app:development -f Dockerfile .
+    - docker push $DOCKER_REGISTRY_USER/fetch-app:development
+
+deploy-kubernetes:
+  stage: deploy
+  tags:
+    - docker
+  before_script:
+    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY_DEV" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - scp -P $SSH_PORT_DEV -o StrictHostKeyChecking=no deployments/kubernetes/fetch-app.yaml $SSH_USER_DEV@$SSH_HOST_DEV:/tmp/fetch-app.yaml
+    - KUBE_CHECK=`ssh -p $SSH_PORT_DEV $SSH_USER_DEV@$SSH_HOST_DEV kubectl get deployments fetch-app | tail -n +2  | awk '{print $1}'` || true
+    - |
+      if [ "$KUBE_CHECK" == "fetch-app" ]; then
+        echo "Updating Kubernetes Deployments [fetch-app]"
+        ssh -p $SSH_PORT_DEV $SSH_USER_DEV@$SSH_HOST_DEV kubectl apply -f /tmp/fetch-app.yaml
+        ssh -p $SSH_PORT_DEV $SSH_USER_DEV@$SSH_HOST_DEV kubectl rollout restart deployment fetch-app
+      else
+        echo "Deploying Kubernetes Deployments [fetch-app]"
+        ssh -p $SSH_PORT_DEV $SSH_USER_DEV@$SSH_HOST_DEV kubectl create -f /tmp/fetch-app.yaml
+      fi

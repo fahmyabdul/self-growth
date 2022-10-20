@@ -1,0 +1,137 @@
+definitions:
+  komoditas.AggregateGroup:
+    properties:
+      avg:
+        type: number
+      collection:
+        items:
+          type: integer
+        type: array
+      max:
+        type: integer
+      median:
+        type: integer
+      min:
+        type: integer
+    type: object
+  komoditas.Komoditas:
+    properties:
+      area_kota:
+        type: string
+      area_provinsi:
+        type: string
+      komoditas:
+        type: string
+      price:
+        type: string
+      price_usd:
+        type: string
+      size:
+        type: string
+      tgl_parsed:
+        type: string
+      timestamp:
+        type: string
+      uuid:
+        type: string
+    type: object
+  komoditas.KomoditasAggregateContent:
+    properties:
+      price:
+        $ref: '#/definitions/komoditas.AggregateGroup'
+      size:
+        $ref: '#/definitions/komoditas.AggregateGroup'
+      week_number:
+        type: integer
+    type: object
+  models.ResponseRestApi:
+    properties:
+      code:
+        type: integer
+      data: {}
+      status:
+        type: string
+    type: object
+  version.ResponseVersion:
+    properties:
+      last_check:
+        type: string
+      version:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /heartbeat:
+    get:
+      consumes:
+      - application/json
+      description: return heartbeat status
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/version.ResponseVersion'
+      summary: Check Heartbeat of the Service
+      tags:
+      - heartbeat
+  /komoditas/get:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/komoditas.Komoditas'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseRestApi'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ResponseRestApi'
+      security:
+      - JWT: []
+      summary: Get All Komoditas Data
+      tags:
+      - komoditas
+  /komoditas/get/aggregate:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/komoditas.KomoditasAggregateContent'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseRestApi'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ResponseRestApi'
+      security:
+      - JWT: []
+      summary: Get The Aggregate Of Komoditas Data
+      tags:
+      - komoditas
+securityDefinitions:
+  JWT:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

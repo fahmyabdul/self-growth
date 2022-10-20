@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  auth-app:
+    container_name: auth-app
+    image: fahmyabdul/auth-app
+    restart: 'always'
+    ports:
+      - '8800:8800'
+    volumes:
+      - /apps/docker-vol/auth-app/db:/auth-app/db:rw
+      # - /apps/docker-vol/auth-app/log:/auth-app/log:rw
+    environment:
+      APP_RUN: 'auth-app'
+      # APP_CONFIG: '/auth-app/.configs.yml'

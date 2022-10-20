@@ -1,0 +1,18 @@
+name: efishery_auth_app_env
+dependencies:
+  - python=3.10
+  - pip
+  - flask
+  - redis-py
+  - requests
+  - click
+  - pyyaml
+  - pyjwt
+  - sqlalchemy
+  - pip:
+    - flask_restful
+    - flasgger
+    - schedule
+    - psycopg2
+    - pydantic
+    - ray

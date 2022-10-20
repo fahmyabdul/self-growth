@@ -1,0 +1,46 @@
+stages: # List of stages for jobs, and their order of execution
+  - build
+  - deploy
+
+build-image:
+  stage: build
+  tags:
+    - docker
+  services:
+    - name: docker:dind
+      command: ["--insecure-registry=$DOCKER_REGISTRY"]
+
+  variables:
+    # Use the overlayfs driver for improved performance.
+    DOCKER_DRIVER: overlay2
+    # Disable TLS since we're running inside local network.
+    DOCKER_TLS_CERTDIR: ""
+
+  # before_script:
+  #   - docker login -u "$DOCKER_REGISTRY_USER" -p "$DOCKER_REGISTRY_PASSWORD" $DOCKER_REGISTRY
+  script:
+    - docker build -t $DOCKER_REGISTRY_USER/auth-app:development -f Dockerfile .
+    - docker push $DOCKER_REGISTRY_USER/auth-app:development
+
+deploy-kubernetes:
+  stage: deploy
+  tags:
+    - docker
+  before_script:
+    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY_DEV" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - scp -P $SSH_PORT_DEV -o StrictHostKeyChecking=no deployments/kubernetes/auth-app.yaml $SSH_USER_DEV@$SSH_HOST_DEV:/tmp/auth-app.yaml
+    - KUBE_CHECK=`ssh -p $SSH_PORT_DEV $SSH_USER_DEV@$SSH_HOST_DEV kubectl get deployments auth-app | tail -n +2  | awk '{print $1}'` || true
+    - |
+      if [ "$KUBE_CHECK" == "auth-app" ]; then
+        echo "Updating Kubernetes Deployments [auth-app]"
+        ssh -p $SSH_PORT_DEV $SSH_USER_DEV@$SSH_HOST_DEV kubectl apply -f /tmp/auth-app.yaml
+        ssh -p $SSH_PORT_DEV $SSH_USER_DEV@$SSH_HOST_DEV kubectl rollout restart deployment auth-app
+      else
+        echo "Deploying Kubernetes Deployments [auth-app]"
+        ssh -p $SSH_PORT_DEV $SSH_USER_DEV@$SSH_HOST_DEV kubectl create -f /tmp/auth-app.yaml
+      fi

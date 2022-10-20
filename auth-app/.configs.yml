@@ -1,0 +1,42 @@
+sleep: 5
+debugging: true
+logger:
+  to_file: true
+  path: ./log/
+databases:
+  sqlite:
+    path: ./db
+    file: auth_app.db
+  redis:
+    host: localhost
+    port: 6379
+    auth: uniquepassword
+    db: 0
+    max_idle: 80
+    max_active: 12000
+    status: false
+  postgre:
+    host: localhost
+    port: 5432
+    user: root
+    pass: uniquepassword
+    db: auth-app
+    schema: public
+    min_conn: 1
+    max_conn: 10
+    status: false
+services:
+  api:
+    host: 0.0.0.0
+    port: '8800'
+    swagger:
+      title: "Efishery - Auth App"
+      description: "Efishery Authentication Application Documentation"
+      schemes: ["http"]
+      basePath: "/api/v1/auth-app"
+      termsOfService: false
+    status: true
+etc:
+  jwt:
+    secret: efisher2022#!
+    expiration: 600

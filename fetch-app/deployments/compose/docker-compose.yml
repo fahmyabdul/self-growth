@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  fetch-app:
+    container_name: fetch-app
+    image: fahmyabdul/fetch-app
+    restart: 'always'
+    ports:
+      - '8600:8600'
+    volumes:
+      - /apps/docker-vol/fetch-app/database:/fetch-app/database:rw
+      # - /apps/docker-vol/fetch-app/.configs.local.yml:/fetch-app/.configs.yml
+    environment: 
+      APP_RUN: 'fetch-app'
+      # APP_LOG: '/fetch-app/log'
+      # APP_CONFIG: '/fetch-app/.configs.kubernetes.yml'
+      FETCH_APP_DATABASES_SQLITE_PATH: '/fetch-app/database'
+      # FETCH_APP_SERVICES_RESTAPI_PORT: '8700'
+    

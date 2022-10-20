@@ -1,0 +1,93 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: auth-app-storage
+spec:
+  storageClassName: openebs-hostpath
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/fahmyabdul/.strg_kube/auth-app"
+  capacity:
+    storage: 1Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: auth-app-claim
+    namespace: fahmy-system
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: fahmy-system
+  name: auth-app-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: openebs-hostpath
+  volumeMode: Filesystem
+  volumeName: auth-app-storage
+
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: fahmy-system
+  name: auth-app
+  labels:
+    app: auth-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-app
+  template:
+    metadata:
+      labels:
+        app: auth-app
+    spec:
+      containers:
+      - name: auth-app
+        image: fahmyabdul/auth-app
+        env:
+        - name: APP_RUN
+          value: auth-app
+        - name: APP_LOG
+          value: ./log
+        volumeMounts:
+        - mountPath: /auth-app/db
+          name: auth-app-vol-1
+        resources:
+          limits:
+            memory: 1Gi
+            cpu: "1"
+          requests:
+            memory: 512Mi
+            cpu: "0.2"
+      volumes:
+      - name: auth-app-vol-1
+        persistentVolumeClaim:
+          claimName: auth-app-claim
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: fahmy-system
+  name: auth-app
+  labels:
+    app: auth-app
+spec:
+  selector:
+    app: auth-app
+  ports:
+    - protocol: TCP
+      port: 8800
+      targetPort: 8800
+      nodePort: 31800
+  type: LoadBalancer

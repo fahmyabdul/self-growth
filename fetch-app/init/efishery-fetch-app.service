@@ -1,0 +1,15 @@
+[Unit]
+Description=EFISHERY Fetch-App
+StartLimitIntervalSec=0[Service]
+After=network.target
+ 
+[Service]
+Type=simple
+User=root
+Restart=always
+RestartSec=3
+WorkingDirectory=/fetch-app
+ExecStart=/fetch-app/bin/fetch-app -config=/fetch-app/conf/.configs.example.yml -log=/fetch-app/log/fetch-app.log
+ 
+[Install]
+WantedBy=multi-user.target
