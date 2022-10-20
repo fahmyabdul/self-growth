@@ -17,9 +17,9 @@
     ·
     <a href="fetch-app/">Fetch App</a>
     <br />
-    <a href="http://sir-avdul.ddns.net:8800/api/v1/auth-app/swagger/index.html">Auth App Live Demo</a>
+    <a href="http://sir-avdul.ddns.net:8800/api/v1/auth-app/swagger/index.html" target="_blank">Auth App Live Demo</a>
     ·
-    <a href="http://sir-avdul.ddns.net:8600/api/v1/fetch-app/swagger/index.html">Fetch App Live Demo</a>
+    <a href="http://sir-avdul.ddns.net:8600/api/v1/fetch-app/swagger/index.html" target="_blank">Fetch App Live Demo</a>
   </p>
 </div>
 
@@ -70,7 +70,13 @@
     <li>
         <a href="#usage">Usage</a>
         <ul>
-            <li><a href="#usage-step-by-step">Step By Step Usage</a></li>
+            <li><a href="#usage-configuration">Configuration</a></li>
+            <li>
+              <a href="#usage-documentations">Documentations</a>
+              <ul>
+                <li><a href="#usage-step-by-step">Step By Step Usage</a></li>
+              </ul>
+            </li>
         </ul>
     </li>
   </ol>
@@ -170,7 +176,10 @@ For detached mode, you won't see the log on your terminal, to see the log, execu
 ```
 docker logs -f auth-app
 ```
-Now the auth-app has been installed successfully.
+Now the auth-app has been installed successfully, to stop the running container, execute this docker command:
+```
+docker-compose -f deployments/compose/docker-compose.yml down
+```
 
 <h3 id="auth-kubernetes-installation">Kubernetes Installation</h3>
 
@@ -231,7 +240,10 @@ For detached mode, you won't see the log on your terminal, to see the log, execu
 ```
 docker logs -f fetch-app
 ```
-Now the fetch-app has been installed successfully.
+Now the fetch-app has been installed successfully, to stop the running container, execute this docker command:
+```
+docker-compose -f deployments/compose/docker-compose.yml down
+```
 
 <h3 id="fetch-kubernetes-installation">Kubernetes Installation</h3>
 
@@ -243,6 +255,36 @@ This kubernetes file contained the `storage`, `storage-claim`, `service`, and `d
 
 <!-- USAGE -->
 ## Usage
+
+<h3 id="usage-configuration">Configuration</h3>
+
+You can configure both apps to run on different ports that you wants. Both auth-app and fetch-app directory have `.configs.yml` file that act as the **configuration file** of each application. 
+
+You can either edit the existing configuration file, or create a new configuration file based on existing configuration file.
+
+<h4 id="usage-edit-existing">Edit Existing Configuration File</h4>
+
+On either auth-app or fetch-app, edit the `.configs.yml` config values before starting the app. The port configuration is in `services` -> `restapi` -> `port` fields.
+
+<h4 id="usage-edit-existing">Create New Configuration File</h4>
+
+Copy the existing config file to a new file with different name, for example:
+```
+cp .configs.yml .configs.local.yml
+```
+Edit the port config in `services` -> `restapi` -> `port` field, then run the app while using `--config` flag like this:
+```
+bash scripts/run.sh --app auth-app --config .configs.local.yml
+```
+Same with for fetch-app:
+```
+bash scripts/run.sh --app fetch-app --config .configs.local.yml
+```
+
+
+
+<h3 id="usage-documentations">Documentations</h3>
+
 For the api documentation, you can visit the **swagger-ui** of each application. Visit these url from your browser:
 
 auth-app
