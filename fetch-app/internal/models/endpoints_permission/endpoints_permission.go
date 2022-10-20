@@ -40,7 +40,7 @@ func (p *EndpointsPermission) InsertDefaultData() error {
 
 	query := fmt.Sprintf(`
 		INSERT OR IGNORE INTO %s (endpoint, permission) 
-			VALUES('/komoditas/getall', '*'), ('/komoditas/aggregate', 'admin')
+			VALUES('/komoditas/get', '*'), ('/komoditas/get/aggregate', 'admin')
 	`, p.TableName())
 
 	if _, err := sqliteConn.Exec(query); err != nil {
