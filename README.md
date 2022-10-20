@@ -10,7 +10,7 @@
 <h3 align="center">EFISHERY TASK</h3>
 
   <p align="center">
-    My Efishery Skill Task Assignments
+    My Efishery Skill Test Assignments
     <br />
     <!-- <a href="https://github.com/github_username/repo_name"><strong>Explore the docs »</strong></a> -->
     <a href="auth-app/">Auth App</a>
