@@ -1,10 +1,10 @@
 package restapi
 
 import (
-	"github.com/fahmyabdul/efishery-task/fetch-app/app"
-	"github.com/fahmyabdul/efishery-task/fetch-app/configs"
-	"github.com/fahmyabdul/efishery-task/fetch-app/services/restapi/docs"
-	"github.com/fahmyabdul/efishery-task/fetch-app/services/restapi/routes"
+	"github.com/fahmyabdul/self-growth/fetch-app/app"
+	"github.com/fahmyabdul/self-growth/fetch-app/configs"
+	"github.com/fahmyabdul/self-growth/fetch-app/services/restapi/docs"
+	"github.com/fahmyabdul/self-growth/fetch-app/services/restapi/routes"
 	"github.com/fahmyabdul/golibs"
 )
 

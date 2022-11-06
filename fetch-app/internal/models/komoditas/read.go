@@ -7,9 +7,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/fahmyabdul/efishery-task/fetch-app/internal/common"
-	"github.com/fahmyabdul/efishery-task/fetch-app/internal/models/exchangerates"
-	"github.com/fahmyabdul/efishery-task/fetch-app/internal/requests"
+	"github.com/fahmyabdul/self-growth/fetch-app/internal/common"
+	"github.com/fahmyabdul/self-growth/fetch-app/internal/models/exchangerates"
+	"github.com/fahmyabdul/self-growth/fetch-app/internal/requests"
 )
 
 func (p *Komoditas) GetAll() (*[]Komoditas, error) {

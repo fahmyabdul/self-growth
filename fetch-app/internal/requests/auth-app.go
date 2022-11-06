@@ -8,30 +8,30 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/fahmyabdul/efishery-task/fetch-app/configs"
-	"github.com/fahmyabdul/efishery-task/fetch-app/internal/models/users"
+	"github.com/fahmyabdul/self-growth/fetch-app/configs"
+	"github.com/fahmyabdul/self-growth/fetch-app/internal/models/users"
 )
 
-type EfisheryAuthApp struct{}
+type AuthApp struct{}
 
-type EfisheryAuthAppValidateResponse struct {
+type AuthAppValidateResponse struct {
 	Message string      `json:"message"`
 	Data    users.Users `json:"data"`
 }
 
-func (p *EfisheryAuthApp) Endpoint() string {
+func (p *AuthApp) Endpoint() string {
 	conf, ok := configs.Properties.Etc["endpoints"].(map[string]interface{})
 	if !ok {
 		return ""
 	}
 
-	return conf["efishery_auth_app"].(string)
+	return conf["auth_app"].(string)
 }
 
-func (p *EfisheryAuthApp) Validate(jwt string) (*EfisheryAuthAppValidateResponse, error) {
+func (p *AuthApp) Validate(jwt string) (*AuthAppValidateResponse, error) {
 	endpoint := fmt.Sprintf("%s/%s", p.Endpoint(), "validate")
 
-	// Post Request to Efishery Auth App
+	// Post Request to  Auth App
 	client := &http.Client{}
 
 	formData := url.Values{}
@@ -53,7 +53,7 @@ func (p *EfisheryAuthApp) Validate(jwt string) (*EfisheryAuthAppValidateResponse
 	}
 
 	// Unmarshal response body
-	var responsePayload EfisheryAuthAppValidateResponse
+	var responsePayload AuthAppValidateResponse
 	err = json.Unmarshal(responseBody, &responsePayload)
 	if err != nil {
 		return nil, err

@@ -30,13 +30,13 @@ services:
     host: 0.0.0.0
     port: '8800'
     swagger:
-      title: "Efishery - Auth App"
-      description: "Efishery Authentication Application Documentation"
+      title: "Auth App"
+      description: "Authentication Application Documentation"
       schemes: ["http"]
       basePath: "/api/v1/auth-app"
       termsOfService: false
     status: true
 etc:
   jwt:
-    secret: efisher2022#!
+    secret: selfgrowth123#!
     expiration: 600

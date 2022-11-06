@@ -3,9 +3,9 @@ package main
 import (
 	"github.com/fahmyabdul/golibs"
 
-	"github.com/fahmyabdul/efishery-task/fetch-app/app"
-	"github.com/fahmyabdul/efishery-task/fetch-app/services"
-	"github.com/fahmyabdul/efishery-task/fetch-app/services/restapi"
+	"github.com/fahmyabdul/self-growth/fetch-app/app"
+	"github.com/fahmyabdul/self-growth/fetch-app/services"
+	"github.com/fahmyabdul/self-growth/fetch-app/services/restapi"
 )
 
 func main() {

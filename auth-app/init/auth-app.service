@@ -8,8 +8,8 @@ After=network.target
 [Service]
 Restart=always
 RestartSec=3
-WorkingDirectory=/apps/efishery/auth-app/
-ExecStart=/apps/efishery/miniconda3/envs/efishery_auth_app_env/bin/python run.py auth-app
+WorkingDirectory=/apps/self-growth/auth-app/
+ExecStart=/apps/self-growth/miniconda3/envs/auth_app_env/bin/python run.py auth-app
  
 [Install]
 WantedBy=multi-user.target

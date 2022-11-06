@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/fahmyabdul/golibs"
-	"github.com/fahmyabdul/efishery-task/fetch-app/services/restapi/routes/endpoints"
+	"github.com/fahmyabdul/self-growth/fetch-app/services/restapi/routes/endpoints"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )

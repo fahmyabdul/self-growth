@@ -1,5 +1,5 @@
 [Unit]
-Description=EFISHERY Fetch-App
+Description=Fetch-App
 StartLimitIntervalSec=0[Service]
 After=network.target
  

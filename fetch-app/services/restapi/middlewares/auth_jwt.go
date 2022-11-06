@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/fahmyabdul/efishery-task/fetch-app/internal/models"
-	"github.com/fahmyabdul/efishery-task/fetch-app/internal/models/endpoints_permission"
-	"github.com/fahmyabdul/efishery-task/fetch-app/internal/requests"
+	"github.com/fahmyabdul/self-growth/fetch-app/internal/models"
+	"github.com/fahmyabdul/self-growth/fetch-app/internal/models/endpoints_permission"
+	"github.com/fahmyabdul/self-growth/fetch-app/internal/requests"
 	"github.com/gin-gonic/gin"
 )
 
@@ -39,9 +39,9 @@ func JwtAuth(basePath string) gin.HandlerFunc {
 			return
 		}
 
-		// Validate jwt token to efishery auth-app
-		var efisheryAuth = requests.EfisheryAuthApp{}
-		responseData, err := efisheryAuth.Validate(jwtToken)
+		// Validate jwt token to auth-app
+		var authApp = requests.AuthApp{}
+		responseData, err := authApp.Validate(jwtToken)
 		if err != nil {
 			c.AbortWithStatusJSON(http.StatusUnauthorized, models.ResponseRestApi{
 				Status: "Unauthorized",

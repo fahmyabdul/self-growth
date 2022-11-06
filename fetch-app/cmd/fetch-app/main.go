@@ -3,16 +3,16 @@ package main
 import (
 	"sync"
 
-	"github.com/fahmyabdul/efishery-task/fetch-app/app"
-	"github.com/fahmyabdul/efishery-task/fetch-app/configs"
-	"github.com/fahmyabdul/efishery-task/fetch-app/internal/initialization"
-	"github.com/fahmyabdul/efishery-task/fetch-app/services"
-	"github.com/fahmyabdul/efishery-task/fetch-app/services/cronjob"
-	"github.com/fahmyabdul/efishery-task/fetch-app/services/daemon"
-	"github.com/fahmyabdul/efishery-task/fetch-app/services/kafka/consumer"
-	"github.com/fahmyabdul/efishery-task/fetch-app/services/kafka/publisher"
-	"github.com/fahmyabdul/efishery-task/fetch-app/services/prometheus"
-	"github.com/fahmyabdul/efishery-task/fetch-app/services/restapi"
+	"github.com/fahmyabdul/self-growth/fetch-app/app"
+	"github.com/fahmyabdul/self-growth/fetch-app/configs"
+	"github.com/fahmyabdul/self-growth/fetch-app/internal/initialization"
+	"github.com/fahmyabdul/self-growth/fetch-app/services"
+	"github.com/fahmyabdul/self-growth/fetch-app/services/cronjob"
+	"github.com/fahmyabdul/self-growth/fetch-app/services/daemon"
+	"github.com/fahmyabdul/self-growth/fetch-app/services/kafka/consumer"
+	"github.com/fahmyabdul/self-growth/fetch-app/services/kafka/publisher"
+	"github.com/fahmyabdul/self-growth/fetch-app/services/prometheus"
+	"github.com/fahmyabdul/self-growth/fetch-app/services/restapi"
 	"github.com/fahmyabdul/golibs"
 )
 

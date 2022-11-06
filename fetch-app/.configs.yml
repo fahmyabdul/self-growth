@@ -51,8 +51,8 @@ services:
     port: '8600'
     base_path: "/api/v1/fetch-app"
     swagger:
-      title: "Efishery - Fetch App"
-      description: "Efishery Fetch Application Documentation"
+      title: "Fetch App"
+      description: "Fetch Application Documentation"
       schemes: 
         - "http"
     status: true

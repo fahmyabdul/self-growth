@@ -1,4 +1,4 @@
-name: efishery_auth_app_env
+name: auth_app_env
 dependencies:
   - python=3.10
   - pip

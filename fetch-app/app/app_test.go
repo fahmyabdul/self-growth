@@ -4,7 +4,7 @@ import (
 	"log"
 	"testing"
 
-	"github.com/fahmyabdul/efishery-task/fetch-app/configs"
+	"github.com/fahmyabdul/self-growth/fetch-app/configs"
 	"github.com/fahmyabdul/golibs"
 )
 

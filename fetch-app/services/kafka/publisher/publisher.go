@@ -3,7 +3,7 @@ package publisher
 import (
 	"github.com/fahmyabdul/golibs"
 	"github.com/fahmyabdul/golibs/kafka"
-	"github.com/fahmyabdul/efishery-task/fetch-app/configs"
+	"github.com/fahmyabdul/self-growth/fetch-app/configs"
 )
 
 type KafkaPublisher struct{}

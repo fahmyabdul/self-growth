@@ -14,7 +14,7 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 	"go.mongodb.org/mongo-driver/mongo"
 
-	"github.com/fahmyabdul/efishery-task/fetch-app/configs"
+	"github.com/fahmyabdul/self-growth/fetch-app/configs"
 )
 
 type Databases struct {

@@ -3,8 +3,8 @@ package daemon
 import (
 	"github.com/fahmyabdul/golibs"
 	"github.com/fahmyabdul/golibs/daemon"
-	"github.com/fahmyabdul/efishery-task/fetch-app/configs"
-	"github.com/fahmyabdul/efishery-task/fetch-app/services/daemon/handlers"
+	"github.com/fahmyabdul/self-growth/fetch-app/configs"
+	"github.com/fahmyabdul/self-growth/fetch-app/services/daemon/handlers"
 )
 
 type Daemon struct{}

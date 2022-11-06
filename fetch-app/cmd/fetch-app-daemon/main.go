@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/fahmyabdul/efishery-task/fetch-app/app"
-	"github.com/fahmyabdul/efishery-task/fetch-app/services"
-	"github.com/fahmyabdul/efishery-task/fetch-app/services/daemon"
+	"github.com/fahmyabdul/self-growth/fetch-app/app"
+	"github.com/fahmyabdul/self-growth/fetch-app/services"
+	"github.com/fahmyabdul/self-growth/fetch-app/services/daemon"
 	"github.com/fahmyabdul/golibs"
 )
 

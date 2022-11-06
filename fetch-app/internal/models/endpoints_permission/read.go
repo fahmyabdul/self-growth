@@ -3,7 +3,7 @@ package endpoints_permission
 import (
 	"fmt"
 
-	"github.com/fahmyabdul/efishery-task/fetch-app/app"
+	"github.com/fahmyabdul/self-growth/fetch-app/app"
 )
 
 func (p *EndpointsPermission) GetListPermission() (map[string]string, error) {

@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/fahmyabdul/efishery-task/fetch-app/internal/version"
+	"github.com/fahmyabdul/self-growth/fetch-app/internal/version"
 )
 
 // Heartbeat :

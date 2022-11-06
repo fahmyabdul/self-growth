@@ -8,7 +8,7 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
-	"github.com/fahmyabdul/efishery-task/fetch-app/services/restapi/controllers"
+	"github.com/fahmyabdul/self-growth/fetch-app/services/restapi/controllers"
 )
 
 type Endpoints struct {

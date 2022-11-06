@@ -1,8 +1,8 @@
 package endpoints
 
 import (
-	"github.com/fahmyabdul/efishery-task/fetch-app/services/restapi/controllers/komoditas"
-	"github.com/fahmyabdul/efishery-task/fetch-app/services/restapi/middlewares"
+	"github.com/fahmyabdul/self-growth/fetch-app/services/restapi/controllers/komoditas"
+	"github.com/fahmyabdul/self-growth/fetch-app/services/restapi/middlewares"
 )
 
 func (p *Endpoints) KomoditasEndpoints() {

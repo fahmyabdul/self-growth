@@ -7,7 +7,7 @@ import (
 
 	"github.com/fahmyabdul/golibs"
 
-	"github.com/fahmyabdul/efishery-task/fetch-app/configs"
+	"github.com/fahmyabdul/self-growth/fetch-app/configs"
 )
 
 type CurrencyConverterApi struct{}

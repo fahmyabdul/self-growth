@@ -3,7 +3,7 @@ from app.logger import set_logger
 from app import databases
 from internal.initialization import initialization
 
-current_version = "v2022.10-17-1"
+current_version = "v2022.11.07-1"
 log_path = None
 
 def initialize(config_file, log_path_input, service_name) -> Exception:

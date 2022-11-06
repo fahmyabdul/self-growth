@@ -1,7 +1,7 @@
 package prometheus
 
 import (
-	"github.com/fahmyabdul/efishery-task/fetch-app/app"
+	"github.com/fahmyabdul/self-growth/fetch-app/app"
 	"github.com/fahmyabdul/golibs"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/collectors"

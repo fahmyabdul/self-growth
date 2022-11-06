@@ -3,7 +3,7 @@ package exchangerates
 import (
 	"fmt"
 
-	"github.com/fahmyabdul/efishery-task/fetch-app/app"
+	"github.com/fahmyabdul/self-growth/fetch-app/app"
 )
 
 func (p *ExchangeRates) Update(from, to string, rates float64, limit int, last_fetch int64) (int, error) {

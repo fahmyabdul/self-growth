@@ -3,8 +3,8 @@ package initialization
 import (
 	"fmt"
 
-	"github.com/fahmyabdul/efishery-task/fetch-app/internal/common"
-	"github.com/fahmyabdul/efishery-task/fetch-app/internal/models/endpoints_permission"
+	"github.com/fahmyabdul/self-growth/fetch-app/internal/common"
+	"github.com/fahmyabdul/self-growth/fetch-app/internal/models/endpoints_permission"
 )
 
 func InitBefore() error {

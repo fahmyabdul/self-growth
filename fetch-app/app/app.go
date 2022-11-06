@@ -9,8 +9,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/fahmyabdul/efishery-task/fetch-app/configs"
 	"github.com/fahmyabdul/golibs"
+	"github.com/fahmyabdul/self-growth/fetch-app/configs"
 )
 
 // Application :
@@ -19,7 +19,7 @@ type Application struct {
 }
 
 const (
-	CurrentVersion string = "v2022.10.16-1"
+	CurrentVersion string = "v2022.11.07-1"
 )
 
 var (

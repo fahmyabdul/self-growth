@@ -3,8 +3,8 @@ package komoditas
 import (
 	"net/http"
 
-	"github.com/fahmyabdul/efishery-task/fetch-app/internal/models"
-	"github.com/fahmyabdul/efishery-task/fetch-app/internal/models/komoditas"
+	"github.com/fahmyabdul/self-growth/fetch-app/internal/models"
+	"github.com/fahmyabdul/self-growth/fetch-app/internal/models/komoditas"
 	"github.com/fahmyabdul/golibs"
 	"github.com/gin-gonic/gin"
 )

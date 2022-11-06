@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/fahmyabdul/golibs"
-	"github.com/fahmyabdul/efishery-task/fetch-app/app"
+	"github.com/fahmyabdul/self-growth/fetch-app/app"
 )
 
 func TestGetVersion(t *testing.T) {

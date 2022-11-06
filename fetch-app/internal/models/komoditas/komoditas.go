@@ -3,7 +3,7 @@ package komoditas
 import (
 	"strings"
 
-	"github.com/fahmyabdul/efishery-task/fetch-app/configs"
+	"github.com/fahmyabdul/self-growth/fetch-app/configs"
 )
 
 type Komoditas struct {

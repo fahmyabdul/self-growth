@@ -3,7 +3,7 @@ package middlewares
 import (
 	"strings"
 
-	"github.com/fahmyabdul/efishery-task/fetch-app/services/prometheus"
+	"github.com/fahmyabdul/self-growth/fetch-app/services/prometheus"
 	"github.com/gin-gonic/gin"
 )
 

@@ -1,4 +1,4 @@
-module github.com/fahmyabdul/efishery-task/fetch-app
+module github.com/fahmyabdul/self-growth/fetch-app
 
 go 1.19
 

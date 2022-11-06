@@ -1,8 +1,8 @@
 package cronjob
 
 import (
-	"github.com/fahmyabdul/efishery-task/fetch-app/configs"
-	"github.com/fahmyabdul/efishery-task/fetch-app/internal/common"
+	"github.com/fahmyabdul/self-growth/fetch-app/configs"
+	"github.com/fahmyabdul/self-growth/fetch-app/internal/common"
 	"github.com/fahmyabdul/golibs"
 	"github.com/jasonlvhit/gocron"
 )

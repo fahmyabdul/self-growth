@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/fahmyabdul/efishery-task/fetch-app/internal/models/exchangerates"
-	"github.com/fahmyabdul/efishery-task/fetch-app/internal/requests"
+	"github.com/fahmyabdul/self-growth/fetch-app/internal/models/exchangerates"
+	"github.com/fahmyabdul/self-growth/fetch-app/internal/requests"
 	"github.com/fahmyabdul/golibs"
 )
 
