@@ -7,12 +7,12 @@
     <img src="../assets/img/flg-round.png" alt="Logo" width="100" height="100">
   </a>
 
-<h3 align="center">Fetch-App</h3>
+<h3 align="center">Data-App</h3>
 
   <p align="center">
-    Data Fetch Application
+    Data Processing Application
     <br />
-    <a href="http://sir-avdul.ddns.net:8600/api/v1/fetch-app/swagger/index.html" target="_blank">Live Demo</a>
+    <a href="http://sir-avdul.ddns.net:8900/api/v1/data-app/swagger/index.html" target="_blank">Live Demo</a>
   </p>
 </div>
 
@@ -37,27 +37,27 @@
       </ul>
     </li>
     <li>
-        <a href="#auth-app-installation">Auth App Installation</a>
+        <a href="#data-app-installation">Data App Installation</a>
         <ul>
-            <li><a href="#auth-manual-installation">Manual Installation</a></li>
+            <li><a href="#data-manual-installation">Manual Installation</a></li>
         </ul>
         <ul>
-            <li><a href="#auth-docker-installation">Docker Installation</a></li>
+            <li><a href="#data-docker-installation">Docker Installation</a></li>
         </ul>
         <ul>
-            <li><a href="#auth-kubernetes-installation">Kubernetes Installation</a></li>
+            <li><a href="#data-kubernetes-installation">Kubernetes Installation</a></li>
         </ul>
     </li>
     <li>
-        <a href="#fetch-app-installation">Fetch App Installation</a>
+        <a href="#data-app-installation">Data App Installation</a>
         <ul>
-            <li><a href="#fetch-manual-installation">Manual Installation</a></li>
+            <li><a href="#data-manual-installation">Manual Installation</a></li>
         </ul>
         <ul>
-            <li><a href="#fetch-docker-installation">Docker Installation</a></li>
+            <li><a href="#data-docker-installation">Docker Installation</a></li>
         </ul>
         <ul>
-            <li><a href="#fetch-kubernetes-installation">Kubernetes Installation</a></li>
+            <li><a href="#data-kubernetes-installation">Kubernetes Installation</a></li>
         </ul>
     </li>
     <li>
@@ -89,9 +89,9 @@ In order to get started, clone this repository into your computer.
 ```
 git clone https://github.com/fahmyabdul/self-growth.git
 ```
-And then move into the fetch-app directory.
+And then move into the data-app directory.
 ```
-cd self-growth/fetch-app
+cd self-growth/data-app
 ```
 
 ### Prerequisites
@@ -102,37 +102,37 @@ To install this applications, there're some prerequisites that needs to be fulfi
 
 ## Installation
 
-<h3 id="fetch-manual-installation">Manual Installation</h3>
+<h3 id="data-manual-installation">Manual Installation</h3>
 
-Makes sure that you've golang installed, then execute this command in order to install the fetch-app modules:
+Makes sure that you've golang installed, then execute this command in order to install the data-app modules:
 ```
 go mod tidy
 ```
 Once done, start the application by executing this command:
 ```
-bash scripts/run.sh --app fetch-app
+bash scripts/run.sh --app data-app
 ```
-If successful, you'll see the `....Successfully starting Fetch App....` log on your terminal. Test the api by executing this curl command:
+If successful, you'll see the `....Successfully starting Data App....` log on your terminal. Test the api by executing this curl command:
 ```
-curl http://localhost:8600/api/v1/fetch-app/heartbeat
+curl http://localhost:8900/api/v1/data-app/heartbeat
 ```
 The api should return a json response similar to this if successful:
 ```
 {"version":"v2022.10.16-1","last_check":"2022-10-20 12:41:14"}
 ```
-Now the fetch-app has been installed successfully.
+Now the data-app has been installed successfully.
 
-<h3 id="fetch-docker-installation">Docker Installation</h3>
+<h3 id="data-docker-installation">Docker Installation</h3>
 
 For docker installation, we recommends you to use the `docker-compose.yml` file for a quick installation.
 
-From fetch-app directory, execute this command to start the docker container:
+From data-app directory, execute this command to start the docker container:
 ```
 docker-compose -f deployments/compose/docker-compose.yml up
 ```
-Wait for docker to pull the docker image. Once done, you'll see the `....Successfully starting Fetch App....` log on your terminal. Test the api by executing this curl command:
+Wait for docker to pull the docker image. Once done, you'll see the `....Successfully starting Data App....` log on your terminal. Test the api by executing this curl command:
 ```
-curl http://localhost:8800/api/v1/auth-app/heartbeat
+curl http://localhost:8800/api/v1/data-app/heartbeat
 ```
 The api should return a json response similar to this if successful:
 ```
@@ -144,18 +144,18 @@ docker-compose -f deployments/compose/docker-compose.yml up -d
 ```
 For detached mode, you won't see the log on your terminal, to see the log, execute this docker command:
 ```
-docker logs -f fetch-app
+docker logs -f data-app
 ```
-Now the fetch-app has been installed successfully, to stop the running container, execute this docker command:
+Now the data-app has been installed successfully, to stop the running container, execute this docker command:
 ```
 docker-compose -f deployments/compose/docker-compose.yml down
 ```
 
-<h3 id="fetch-kubernetes-installation">Kubernetes Installation</h3>
+<h3 id="data-kubernetes-installation">Kubernetes Installation</h3>
 
-For Kubernetes installation, execute this command from fetch-app directory:
+For Kubernetes installation, execute this command from data-app directory:
 ```
-kubectl apply -f deployments/kubernetes/fetch-app.yml
+kubectl apply -f deployments/kubernetes/data-app.yml
 ```
 This kubernetes file contained the `storage`, `storage-claim`, `service`, and `deployments` configuration, you might need to change some of the configuration values in order to adjust to your prefered kubernetes.
 
@@ -164,13 +164,13 @@ This kubernetes file contained the `storage`, `storage-claim`, `service`, and `d
 
 <h3 id="usage-configuration">Configuration</h3>
 
-You can configure both apps to run on different ports that you wants. Both auth-app and fetch-app directory have `.configs.yml` file that act as the **configuration file** of each application. 
+You can configure both apps to run on different ports that you wants. Both data-app and data-app directory have `.configs.yml` file that act as the **configuration file** of each application. 
 
 You can either edit the existing configuration file, or create a new configuration file based on existing configuration file.
 
 <h4 id="usage-edit-existing">Edit Existing Configuration File</h4>
 
-On either auth-app or fetch-app, edit the `.configs.yml` config values before starting the app. The port configuration is in `services` -> `restapi` -> `port` fields.
+On either data-app or data-app, edit the `.configs.yml` config values before starting the app. The port configuration is in `services` -> `restapi` -> `port` fields.
 
 <h4 id="usage-edit-existing">Create New Configuration File</h4>
 
@@ -180,7 +180,7 @@ cp .configs.yml .configs.local.yml
 ```
 Edit the port config in `services` -> `restapi` -> `port` field, then run the app while using `--config` flag like this:
 ```
-bash scripts/run.sh --app fetch-app --config .configs.local.yml
+bash scripts/run.sh --app data-app --config .configs.local.yml
 ```
 
 
@@ -189,9 +189,9 @@ bash scripts/run.sh --app fetch-app --config .configs.local.yml
 
 For the api documentation, you can visit the **swagger-ui** of each application. Visit these url from your browser:
 
-fetch-app
+data-app
 ```
-http://localhost:8600/api/v1/fetch-app/swagger/index.html
+http://localhost:8900/api/v1/data-app/swagger/index.html
 ```
 
 

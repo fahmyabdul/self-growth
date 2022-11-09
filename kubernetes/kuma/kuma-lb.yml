@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: kuma-system
+  name: kuma-http-api-server-lb
+  labels:
+    app: kuma-http-api-server-lb
+spec:
+  selector:
+    app: kuma-control-plane 
+  ports:
+    - protocol: TCP
+      port: 5681
+      targetPort: 5681
+      nodePort: 30681
+  type: LoadBalancer

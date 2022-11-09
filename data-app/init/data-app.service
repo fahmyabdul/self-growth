@@ -1,0 +1,15 @@
+[Unit]
+Description=Data-App
+StartLimitIntervalSec=0[Service]
+After=network.target
+ 
+[Service]
+Type=simple
+User=root
+Restart=always
+RestartSec=3
+WorkingDirectory=/data-app
+ExecStart=/data-app/bin/data-app -config=/data-app/conf/.configs.example.yml -log=/data-app/log/data-app.log
+ 
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,225 @@
+definitions:
+  models.ResponseRestApi:
+    properties:
+      code:
+        type: integer
+      data: {}
+      status:
+        type: string
+    type: object
+  transactions.Transactions:
+    properties:
+      paid_amount:
+        type: integer
+      payment_method:
+        type: integer
+      transaction_date:
+        type: integer
+      transaction_hash:
+        type: string
+      username:
+        type: string
+    type: object
+  version.ResponseVersion:
+    properties:
+      last_check:
+        type: string
+      version:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /heartbeat:
+    get:
+      consumes:
+      - application/json
+      description: return heartbeat status
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/version.ResponseVersion'
+      summary: Check Heartbeat of the Service
+      tags:
+      - heartbeat
+  /transactions/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Transaction Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/transactions.Transactions'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/transactions.Transactions'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseRestApi'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ResponseRestApi'
+      summary: Create Transaction
+      tags:
+      - transactions
+  /transactions/delete/{transactionhash}:
+    delete:
+      consumes:
+      - application/json
+      parameters:
+      - description: Transaction Hash
+        in: path
+        name: transactionhash
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ResponseRestApi'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseRestApi'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ResponseRestApi'
+      summary: Delete Transaction Data By Transaction Hash
+      tags:
+      - transactions
+  /transactions/get:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/transactions.Transactions'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseRestApi'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ResponseRestApi'
+      summary: Get All Transaction Data
+      tags:
+      - transactions
+  /transactions/get/filter:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Filter Data
+        in: body
+        name: request
+        required: true
+        schema:
+          additionalProperties: true
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/transactions.Transactions'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseRestApi'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ResponseRestApi'
+      summary: Get Transaction Data By Custom Filter
+      tags:
+      - transactions
+  /transactions/get/username/{username}:
+    get:
+      consumes:
+      - application/json
+      parameters:
+      - description: Username
+        in: path
+        name: username
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/transactions.Transactions'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseRestApi'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ResponseRestApi'
+      summary: Get Transaction Data By Username
+      tags:
+      - transactions
+  /transactions/update/{transactionhash}:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: Transaction Hash
+        in: path
+        name: transactionhash
+        required: true
+        type: string
+      - description: Transaction Data
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/transactions.Transactions'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/transactions.Transactions'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ResponseRestApi'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/models.ResponseRestApi'
+      summary: Update Transaction
+      tags:
+      - transactions
+swagger: "2.0"

@@ -10,7 +10,7 @@
 <h3 align="center">Auth App</h3>
 
   <p align="center">
-    Repository for learning
+    Authentication Application
     <br />
     <a href="http://sir-avdul.ddns.net:8800/api/v1/auth-app/swagger/index.html" target="_blank">Live Demo</a>
 </div>

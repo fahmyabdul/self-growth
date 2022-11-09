@@ -1,0 +1,101 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: fetch-app-storage
+spec:
+  storageClassName: openebs-hostpath
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/fahmyabdul/.strg_kube/fetch-app"
+  capacity:
+    storage: 1Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: fetch-app-claim
+    namespace: fahmy-system
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: fahmy-system
+  name: fetch-app-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: openebs-hostpath
+  volumeMode: Filesystem
+  volumeName: fetch-app-storage
+
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: fahmy-system
+  name: fetch-app
+  labels:
+    app: fetch-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fetch-app
+  template:
+    metadata:
+      labels:
+        app: fetch-app
+    spec:
+      containers:
+      - name: fetch-app
+        image: fahmyabdul/fetch-app
+        env:
+        - name: APP_RUN
+          value: fetch-app
+        - name: APP_LOG
+          value: ./log
+        - name: FETCH_APP_DATABASES_SQLITE_PATH
+          value: '/fetch-app/database'
+        - name: FETCH_APP_ETC_ENDPOINTS_EFISHERY_AUTH_APP
+          value: 'http://auth-app.fahmy-system.svc.cluster.local:8800/api/v1/auth-app'
+        # - name: FETCH_APP_SERVICES_RESTAPI_PORT
+        #   value: '8700'
+        # - name: APP_CONFIG
+        #   value: '/fetch-app/.configs.kubernetes.yml'
+        volumeMounts:
+        - mountPath: /fetch-app/database
+          name: fetch-app-vol-1
+        resources:
+          limits:
+            memory: 1Gi
+            cpu: "1"
+          requests:
+            memory: 512Mi
+            cpu: "0.2"
+      volumes:
+      - name: fetch-app-vol-1
+        persistentVolumeClaim:
+          claimName: fetch-app-claim
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: fahmy-system
+  name: fetch-app
+  labels:
+    app: fetch-app
+spec:
+  selector:
+    app: fetch-app
+  ports:
+    - protocol: TCP
+      port: 8600
+      targetPort: 8600
+      nodePort: 31600
+  type: LoadBalancer

@@ -1,0 +1,52 @@
+logger:
+  dailyRotate: true
+  compressLog: true
+  logToTerminal: true
+databases:
+  redis:
+    host: localhost:6379
+    auth: uniquepassword
+    db: 0
+    max_idle: 80
+    max_active: 12000
+    status: false
+  postgre:
+    host: localhost
+    port: 5432
+    user: root
+    pass: uniquepassword
+    db: data-app
+    schema: public
+    status: false
+  mongo:
+    host:
+      '0': localhost:27017
+    user: root
+    pass: uniquepassword
+    db: admin
+    srv: false
+    cluster: false
+    rs_name: admin
+    status: false
+  sqlite:
+    path: ./db
+    file: fetch_app.db
+    status: true
+services:
+  restapi:
+    port: '8900'
+    base_path: "/api/v1/data-app"
+    swagger:
+      title: "Data App"
+      description: "Data Processing Application Documentation"
+      schemes: 
+        - "http"
+    status: true
+  prometheus:
+    status: false
+etc:
+  endpoints:
+    efishery_api: https://stein.efishery.com/v1/storages/5e1edf521073e315924ceab4/list
+    efishery_auth_app: http://localhost:8800/api/v1/auth-app
+    currencyconverter_api: https://api.apilayer.com/exchangerates_data
+    currencyconverter_api_key: lZifniNg3yjCKvlvfKuJHgrG98csIHfT

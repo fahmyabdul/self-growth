@@ -1,0 +1,69 @@
+stages: # List of stages for jobs, and their order of execution
+  - test
+  - build
+  - deploy
+
+test-build-golang:
+  stage: test
+  tags:
+    - golang
+  before_script:
+    - git config --global url."https://$GITLAB_USER:$GITLAB_PASS@gitlab.com/".insteadOf "https://gitlab.com/"
+  script:
+    - go build ./cmd/data-app
+    - CURRENT_VERSION=`./data-app --version`
+    - |
+      if [ "$CURRENT_VERSION" != "" ]; then
+        echo "Build Successful, using data-app $CURRENT_VERSION"
+      else
+        echo "Unable to get current version of data-app, build failed!"
+        exit 1
+      fi
+  artifacts:
+    expose_as: 'binary data-app'
+    paths:
+      - data-app
+    expire_in: 30 days
+
+build-image:
+  stage: build
+  tags:
+    - docker
+  services:
+    - name: docker:dind
+      command: ["--insecure-registry=$DOCKER_REGISTRY"]
+
+  variables:
+    # Use the overlayfs driver for improved performance.
+    DOCKER_DRIVER: overlay2
+    # Disable TLS since we're running inside local network.
+    DOCKER_TLS_CERTDIR: ""
+
+  # before_script:
+  #   - docker login -u "$DOCKER_REGISTRY_USER" -p "$DOCKER_REGISTRY_PASSWORD" $DOCKER_REGISTRY
+  script:
+    - docker build -t $DOCKER_REGISTRY_USER/data-app:latest -f Dockerfile .
+    - docker push $DOCKER_REGISTRY_USER/data-app:latest
+
+deploy-kubernetes:
+  stage: deploy
+  tags:
+    - docker
+  before_script:
+    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY_PROD" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+  script:
+    - scp -P $SSH_PORT_PROD -o StrictHostKeyChecking=no deployments/kubernetes/data-app.yaml $SSH_USER_PROD@$SSH_HOST_PROD:/tmp/data-app.yaml
+    - KUBE_CHECK=`ssh -p $SSH_PORT_PROD $SSH_USER_PROD@$SSH_HOST_PROD kubectl get deployments data-app | tail -n +2  | awk '{print $1}'` || true
+    - |
+      if [ "$KUBE_CHECK" == "data-app" ]; then
+        echo "Updating Kubernetes Deployments [data-app]"
+        ssh -p $SSH_PORT_PROD $SSH_USER_PROD@$SSH_HOST_PROD kubectl apply -f /tmp/data-app.yaml
+        ssh -p $SSH_PORT_PROD $SSH_USER_PROD@$SSH_HOST_PROD kubectl rollout restart deployment data-app
+      else
+        echo "Deploying Kubernetes Deployments [data-app]"
+        ssh -p $SSH_PORT_PROD $SSH_USER_PROD@$SSH_HOST_PROD kubectl create -f /tmp/data-app.yaml
+      fi
