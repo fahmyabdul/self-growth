@@ -1,5 +1,5 @@
 <a name="readme-top"></a>
-[![LinkedIn][linkedin-shield]][linkedin-url] [![Forks][forks-shield]][forks-url] [![Stargazers][stars-shield]][stars-url] [![Golang-lang][Golang-lang]][golang-url]
+[![LinkedIn][linkedin-shield]][linkedin-url] [![Forks][forks-shield]][forks-url] [![Stargazers][stars-shield]][stars-url] [![Go-lang][Go-lang]][Go-url]
 
 <!-- PROJECT LOGO -->
 <br />
@@ -37,6 +37,12 @@
       <a href="#how-to-run">How To Run</a>
     </li>
     <li>
+      <a href="#library-rights">Library Rights</a>
+    </li>
+    <li>
+      <a href="#references">References</a>
+    </li>
+    <li>
       <a href="#contributions">Contributions</a>
     </li>
   </ol>
@@ -62,17 +68,17 @@ Explanation of each fields of configuration file goes here.
 ## How To Run
 Explanation of how to run this project goes here.
 
-<!-- CONTRIBUTIONS -->
-## Contributions
-Words of contributions goes here.
-
 <!-- LIBRARY RIGHTS -->
 ## Library Rights
 I own no rights of the libraries used on this project, all rights goes to every owner of each libraries, see [go.mod](go.mod).
 
 <!-- REFERENCES -->
-## REFERENCES
+## References
 References used for this project goes here.
+
+<!-- CONTRIBUTIONS -->
+## Contributions
+Words of contributions goes here.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -84,8 +90,8 @@ References used for this project goes here.
 [forks-url]: https://github.com/fahmyabdul/kube-deployments/network/members
 [stars-shield]: https://img.shields.io/github/stars/fahmyabdul/kube-deployments.svg?style=for-the-badge
 [stars-url]: https://github.com/fahmyabdul/kube-deployments/stargazers
-[Golang-lang]: https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white
-[Golang-url]: https://go.dev/
+[Go-lang]: https://img.shields.io/badge/go-%2300ADD8.svg?style=for-the-badge&logo=go&logoColor=white
+[Go-url]: https://go.dev/
 [Python-lang]:https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54
 [Python-url]: https://www.python.org/
 [Docker]:https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
