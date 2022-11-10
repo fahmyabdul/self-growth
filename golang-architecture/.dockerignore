@@ -1,0 +1,8 @@
+/golang-architecture
+log/
+*.log
+*.log.gz
+test.go
+./golang-architecture
+tmp/
+vendor/

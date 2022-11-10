@@ -1,0 +1,16 @@
+stages:
+  - deployments
+
+deployment_dev:
+  stage: deployments
+  trigger:
+    include: deployments/.gitlab-ci.dev.yml
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'development'
+
+deployment_prod:
+  stage: deployments
+  trigger:
+    include: deployments/.gitlab-ci.prod.yml
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'production'

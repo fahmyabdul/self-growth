@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  golang-architecture:
+    container_name: golang-architecture
+    image: fahmyabdul/golang-architecture
+    restart: 'always'
+    ports:
+      - '8500:8500'
+    volumes:
+      - /apps/docker-vol/golang-architecture/database:/golang-architecture/database:rw
+      # - /apps/docker-vol/golang-architecture/.configs.local.yml:/golang-architecture/.configs.yml
+    environment: 
+      APP_RUN: 'golang-architecture'
+      # APP_LOG: '/golang-architecture/log'
+      # APP_CONFIG: '/golang-architecture/.configs.kubernetes.yml'
+      FETCH_APP_DATABASES_SQLITE_PATH: '/golang-architecture/database'
+      # FETCH_APP_SERVICES_RESTAPI_PORT: '8700'
+    

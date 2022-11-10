@@ -1,0 +1,101 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: golang-architecture-storage
+spec:
+  storageClassName: openebs-hostpath
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/home/fahmyabdul/.strg_kube/golang-architecture"
+  capacity:
+    storage: 1Gi
+  claimRef:
+    apiVersion: v1
+    kind: PersistentVolumeClaim
+    name: golang-architecture-claim
+    namespace: fahmy-system
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  namespace: fahmy-system
+  name: golang-architecture-claim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: openebs-hostpath
+  volumeMode: Filesystem
+  volumeName: golang-architecture-storage
+
+---
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: fahmy-system
+  name: golang-architecture
+  labels:
+    app: golang-architecture
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: golang-architecture
+  template:
+    metadata:
+      labels:
+        app: golang-architecture
+    spec:
+      containers:
+      - name: golang-architecture
+        image: fahmyabdul/golang-architecture
+        env:
+        - name: APP_RUN
+          value: golang-architecture
+        - name: APP_LOG
+          value: ./log
+        - name: FETCH_APP_DATABASES_SQLITE_PATH
+          value: '/golang-architecture/database'
+        - name: FETCH_APP_ETC_ENDPOINTS_EFISHERY_AUTH_APP
+          value: 'http://auth-app.fahmy-system.svc.cluster.local:8800/api/v1/auth-app'
+        # - name: FETCH_APP_SERVICES_RESTAPI_PORT
+        #   value: '8700'
+        # - name: APP_CONFIG
+        #   value: '/golang-architecture/.configs.kubernetes.yml'
+        volumeMounts:
+        - mountPath: /golang-architecture/database
+          name: golang-architecture-vol-1
+        resources:
+          limits:
+            memory: 1Gi
+            cpu: "1"
+          requests:
+            memory: 512Mi
+            cpu: "0.2"
+      volumes:
+      - name: golang-architecture-vol-1
+        persistentVolumeClaim:
+          claimName: golang-architecture-claim
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: fahmy-system
+  name: golang-architecture
+  labels:
+    app: golang-architecture
+spec:
+  selector:
+    app: golang-architecture
+  ports:
+    - protocol: TCP
+      port: 8500
+      targetPort: 8500
+      nodePort: 31500
+  type: LoadBalancer

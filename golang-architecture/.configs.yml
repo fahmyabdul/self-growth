@@ -1,0 +1,80 @@
+logger:
+  dailyRotate: true
+  compressLog: true
+  logToTerminal: true
+databases:
+  redis:
+    host: localhost:6379
+    auth: uniquepassword
+    db: 0
+    max_idle: 80
+    max_active: 12000
+    status: false
+  postgre:
+    host: localhost
+    port: 5432
+    user: golang-architecture
+    pass: uniquepassword
+    db: golang-architecture
+    schema: public
+    status: false
+  mongo:
+    host:
+      '0': localhost:27017
+    user: golang-architecture
+    pass: uniquepassword
+    db: admin
+    srv: false
+    cluster: false
+    rs_name: admin
+    status: false
+  sqlite:
+    path: ./db
+    file: golang-architecture.db
+    status: true
+controller:
+  api:
+    status: true
+    port: '8500'
+    base_path: "/api/v1/go-arch"
+    swagger:
+      title: "Golang-Architecture"
+      description: "Golang Architecture Swagger Example"
+      schemes: 
+        - "http"
+  cronjob:
+    status: true
+    jobs:
+      param_check:
+        status: true
+        every: day
+        hours:
+          - "00:00"
+          - "08:00"
+          - "16:00"
+  daemon:
+    status: false
+    sleep: 10
+    waitGroup: true
+  kafka:
+    brokers:
+      '1': localhost:9092
+    assignor: roundrobin
+    version: 2.1.1
+    verbose: false
+    dialTimeout: 2
+    consumer:
+      type: group
+      topic: t-favorites
+      group: cg-t-favorites
+      oldest: true
+      status: false
+    publisher:
+      retrymax: 2
+      timeout: 2
+      idempotent: true
+      status: false
+etc:
+  url:
+    data_app: http://localhost:8900/api/v1/data-app
+  

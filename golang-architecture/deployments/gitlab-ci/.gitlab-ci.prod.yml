@@ -1,0 +1,27 @@
+stages: # List of stages for jobs, and their order of execution
+  - test
+  - build
+  - deploy
+
+test-build-golang:
+  stage: test
+  tags:
+    - golang
+  before_script:
+    - git config --global url."https://$GITLAB_USER:$GITLAB_PASS@gitlab.com/".insteadOf "https://gitlab.com/"
+  script:
+    - echo "PRODUCTION CI/CD"
+    - go build ./cmd/golang-architecture
+    - CURRENT_VERSION=`./golang-architecture --version`
+    - |
+      if [ "$CURRENT_VERSION" != "" ]; then
+        echo "Build Successful, using golang-architecture $CURRENT_VERSION"
+      else
+        echo "Unable to get current version of golang-architecture, build failed!"
+        exit 1
+      fi
+  artifacts:
+    expose_as: 'binary golang-architecture'
+    paths:
+      - golang-architecture
+    expire_in: 30 days
