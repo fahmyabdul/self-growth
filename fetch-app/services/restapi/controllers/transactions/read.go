@@ -1,28 +1,28 @@
-package komoditas
+package transactions
 
 import (
 	"net/http"
 
-	"github.com/fahmyabdul/self-growth/fetch-app/internal/models"
-	"github.com/fahmyabdul/self-growth/fetch-app/internal/models/komoditas"
 	"github.com/fahmyabdul/golibs"
+	"github.com/fahmyabdul/self-growth/fetch-app/internal/models"
+	"github.com/fahmyabdul/self-growth/fetch-app/internal/models/transactions"
 	"github.com/gin-gonic/gin"
 )
 
-// KomoditasGetAll godoc
-// @Summary      Get All Komoditas Data
-// @Tags         komoditas
+// TransactionsGetAll godoc
+// @Summary      Get All Transactions Data
+// @Tags         transactions
 // @Accept       json
 // @Produce      json
-// @Success      200  {object}  []komoditas.Komoditas
+// @Success      200  {object}  []transactions.Transactions
 // @Failure		 400  {object}	models.ResponseRestApi
 // @Failure		 401  {object}	models.ResponseRestApi
-// @Router       /komoditas/get [get]
+// @Router       /transactions/get [get]
 // @Security JWT
-func (p *CtrlKomoditas) GetAll(c *gin.Context) {
-	var usedModels komoditas.Komoditas
+func (p *CtrlTransactions) GetAll(c *gin.Context) {
+	var usedModels transactions.Transactions
 
-	listKomoditas, err := usedModels.GetAll()
+	listTransactions, err := usedModels.GetAll()
 	if err != nil {
 		golibs.Log.Printf("| Error : %s\n", err.Error())
 
@@ -38,24 +38,24 @@ func (p *CtrlKomoditas) GetAll(c *gin.Context) {
 	c.JSON(http.StatusOK, models.ResponseRestApi{
 		Status: "Success",
 		Code:   http.StatusOK,
-		Data:   &listKomoditas,
+		Data:   &listTransactions,
 	})
 }
 
-// KomoditasGetAggregate godoc
-// @Summary      Get The Aggregate Of Komoditas Data
-// @Tags         komoditas
+// TransactionsGetAggregate godoc
+// @Summary      Get The Aggregate Of Transactions Data
+// @Tags         transactions
 // @Accept       json
 // @Produce      json
-// @Success      200  {object}  []komoditas.KomoditasAggregateContent
+// @Success      200  {object}  []transactions.TransactionsAggregateContent
 // @Failure		 400  {object}	models.ResponseRestApi
 // @Failure		 401  {object}	models.ResponseRestApi
-// @Router       /komoditas/get/aggregate [get]
+// @Router       /transactions/get/aggregate [get]
 // @Security JWT
-func (p *CtrlKomoditas) GetAggregate(c *gin.Context) {
-	var usedModels komoditas.Komoditas
+func (p *CtrlTransactions) GetAggregate(c *gin.Context) {
+	var usedModels transactions.Transactions
 
-	listKomoditasAggregate, err := usedModels.GetAggregate()
+	listTransactionsAggregate, err := usedModels.GetAggregate()
 	if err != nil {
 		golibs.Log.Printf("| Error : %s\n", err.Error())
 
@@ -71,6 +71,6 @@ func (p *CtrlKomoditas) GetAggregate(c *gin.Context) {
 	c.JSON(http.StatusOK, models.ResponseRestApi{
 		Status: "Success",
 		Code:   http.StatusOK,
-		Data:   &listKomoditasAggregate,
+		Data:   &listTransactionsAggregate,
 	})
 }

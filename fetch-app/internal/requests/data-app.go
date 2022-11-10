@@ -8,19 +8,20 @@ import (
 	"github.com/fahmyabdul/self-growth/fetch-app/configs"
 )
 
-type EfisheryApi struct{}
+type DataApp struct{}
 
-func (p *EfisheryApi) Endpoint() string {
+func (p *DataApp) Endpoint() string {
 	conf, ok := configs.Properties.Etc["endpoints"].(map[string]interface{})
 	if !ok {
 		return ""
 	}
 
-	return conf["efishery_api"].(string)
+	return conf["data_app"].(string)
 }
 
-func (p *EfisheryApi) GetKomoditas() ([]byte, error) {
-	endpoint := fmt.Sprintf("%s", p.Endpoint())
+func (p *DataApp) GetAll() ([]byte, error) {
+	endpoint := fmt.Sprintf("%s/transactions/get", p.Endpoint())
+	fmt.Println(endpoint)
 	response, responseBody, err := golibs.GetRequest(endpoint)
 	if err != nil {
 		return nil, err

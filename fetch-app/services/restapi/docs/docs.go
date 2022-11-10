@@ -39,7 +39,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/komoditas/get": {
+        "/transactions/get": {
             "get": {
                 "security": [
                     {
@@ -53,16 +53,16 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "komoditas"
+                    "transactions"
                 ],
-                "summary": "Get All Komoditas Data",
+                "summary": "Get All Transactions Data",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/komoditas.Komoditas"
+                                "$ref": "#/definitions/transactions.Transactions"
                             }
                         }
                     },
@@ -81,7 +81,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/komoditas/get/aggregate": {
+        "/transactions/get/aggregate": {
             "get": {
                 "security": [
                     {
@@ -95,16 +95,16 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "komoditas"
+                    "transactions"
                 ],
-                "summary": "Get The Aggregate Of Komoditas Data",
+                "summary": "Get The Aggregate Of Transactions Data",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#/definitions/komoditas.KomoditasAggregateContent"
+                                "$ref": "#/definitions/transactions.TransactionsAggregateContent"
                             }
                         }
                     },
@@ -125,7 +125,19 @@ const docTemplate = `{
         }
     },
     "definitions": {
-        "komoditas.AggregateGroup": {
+        "models.ResponseRestApi": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "data": {},
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "transactions.AggregateGroup": {
             "type": "object",
             "properties": {
                 "avg": {
@@ -148,61 +160,37 @@ const docTemplate = `{
                 }
             }
         },
-        "komoditas.Komoditas": {
+        "transactions.Transactions": {
             "type": "object",
             "properties": {
-                "area_kota": {
+                "paid_amount": {
+                    "type": "integer"
+                },
+                "paid_usd": {
                     "type": "string"
                 },
-                "area_provinsi": {
+                "payment_method": {
+                    "type": "integer"
+                },
+                "transaction_date": {
+                    "type": "integer"
+                },
+                "transaction_hash": {
                     "type": "string"
                 },
-                "komoditas": {
-                    "type": "string"
-                },
-                "price": {
-                    "type": "string"
-                },
-                "price_usd": {
-                    "type": "string"
-                },
-                "size": {
-                    "type": "string"
-                },
-                "tgl_parsed": {
-                    "type": "string"
-                },
-                "timestamp": {
-                    "type": "string"
-                },
-                "uuid": {
+                "username": {
                     "type": "string"
                 }
             }
         },
-        "komoditas.KomoditasAggregateContent": {
+        "transactions.TransactionsAggregateContent": {
             "type": "object",
             "properties": {
-                "price": {
-                    "$ref": "#/definitions/komoditas.AggregateGroup"
+                "paid": {
+                    "$ref": "#/definitions/transactions.AggregateGroup"
                 },
-                "size": {
-                    "$ref": "#/definitions/komoditas.AggregateGroup"
-                },
-                "week_number": {
+                "payment_method": {
                     "type": "integer"
-                }
-            }
-        },
-        "models.ResponseRestApi": {
-            "type": "object",
-            "properties": {
-                "code": {
-                    "type": "integer"
-                },
-                "data": {},
-                "status": {
-                    "type": "string"
                 }
             }
         },

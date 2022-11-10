@@ -19,7 +19,7 @@ type Application struct {
 }
 
 const (
-	CurrentVersion string = "v2022.11.07-1"
+	CurrentVersion string = "v2022.11.11-1"
 )
 
 var (

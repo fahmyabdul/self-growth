@@ -34,6 +34,6 @@ func (p *Endpoints) LoadEndpoints() {
 		p.MainGroup.GET("/metrics", gin.WrapH(promhttp.Handler()))
 	}
 
-	// Set Komoditas Endpoints
-	p.KomoditasEndpoints()
+	// Set Transactions Endpoints
+	p.TransactionsEndpoints()
 }

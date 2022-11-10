@@ -1,5 +1,13 @@
 definitions:
-  komoditas.AggregateGroup:
+  models.ResponseRestApi:
+    properties:
+      code:
+        type: integer
+      data: {}
+      status:
+        type: string
+    type: object
+  transactions.AggregateGroup:
     properties:
       avg:
         type: number
@@ -14,43 +22,27 @@ definitions:
       min:
         type: integer
     type: object
-  komoditas.Komoditas:
+  transactions.Transactions:
     properties:
-      area_kota:
+      paid_amount:
+        type: integer
+      paid_usd:
         type: string
-      area_provinsi:
+      payment_method:
+        type: integer
+      transaction_date:
+        type: integer
+      transaction_hash:
         type: string
-      komoditas:
-        type: string
-      price:
-        type: string
-      price_usd:
-        type: string
-      size:
-        type: string
-      tgl_parsed:
-        type: string
-      timestamp:
-        type: string
-      uuid:
+      username:
         type: string
     type: object
-  komoditas.KomoditasAggregateContent:
+  transactions.TransactionsAggregateContent:
     properties:
-      price:
-        $ref: '#/definitions/komoditas.AggregateGroup'
-      size:
-        $ref: '#/definitions/komoditas.AggregateGroup'
-      week_number:
+      paid:
+        $ref: '#/definitions/transactions.AggregateGroup'
+      payment_method:
         type: integer
-    type: object
-  models.ResponseRestApi:
-    properties:
-      code:
-        type: integer
-      data: {}
-      status:
-        type: string
     type: object
   version.ResponseVersion:
     properties:
@@ -77,7 +69,7 @@ paths:
       summary: Check Heartbeat of the Service
       tags:
       - heartbeat
-  /komoditas/get:
+  /transactions/get:
     get:
       consumes:
       - application/json
@@ -88,7 +80,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/komoditas.Komoditas'
+              $ref: '#/definitions/transactions.Transactions'
             type: array
         "400":
           description: Bad Request
@@ -100,10 +92,10 @@ paths:
             $ref: '#/definitions/models.ResponseRestApi'
       security:
       - JWT: []
-      summary: Get All Komoditas Data
+      summary: Get All Transactions Data
       tags:
-      - komoditas
-  /komoditas/get/aggregate:
+      - transactions
+  /transactions/get/aggregate:
     get:
       consumes:
       - application/json
@@ -114,7 +106,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/komoditas.KomoditasAggregateContent'
+              $ref: '#/definitions/transactions.TransactionsAggregateContent'
             type: array
         "400":
           description: Bad Request
@@ -126,9 +118,9 @@ paths:
             $ref: '#/definitions/models.ResponseRestApi'
       security:
       - JWT: []
-      summary: Get The Aggregate Of Komoditas Data
+      summary: Get The Aggregate Of Transactions Data
       tags:
-      - komoditas
+      - transactions
 securityDefinitions:
   JWT:
     in: header
